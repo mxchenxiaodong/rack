@@ -2,11 +2,21 @@
 # require 'rubygems'
 require 'rack'
 
+# 查看所有环境变量
 def p_rack_env(env)
   env.map{ |key, value| "#{key} - #{value}" }.sort.join("\n")
 end
 
+# 部分变量
+def p_rack_env(env)
+  "your request: \n
+      http_method: #{env['REQUEST_METHOD']} \n
+      path: #{env['REQUEST_PATH']} \n
+      query_params: #{env['QUERY_STRING']}"
+end
+
 Rack::Handler::WEBrick.run lambda {|env| [200, {}, [p_rack_env(env)]]}, :Port => 3000
+
 
 # return below
 # GATEWAY_INTERFACE - CGI/1.1
